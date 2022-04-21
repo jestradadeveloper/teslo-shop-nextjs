@@ -13,6 +13,9 @@ export const lightTheme = createTheme({
     },
     info: {
       main: '#fff'
+    },
+    success: {
+      main: '#2d3436'
     }
   },
   components: {
