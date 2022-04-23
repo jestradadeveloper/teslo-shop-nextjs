@@ -6,7 +6,7 @@ import NextLink from 'next/link';
 const LoginPage = () => {
   return (
     <AuthLayout title={'Ingresar'}>
-        <Box sx={{ width: 350, padding: '10px 20px'}}>
+        <Box sx={{ width: 350, padding: '10px 20px', mt:15}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography component='h1' variant='h1'>Iniciar Sesion</Typography>
@@ -18,7 +18,7 @@ const LoginPage = () => {
               <TextField label='Password' type='password' variant='filled' fullWidth/>
             </Grid>
             <Grid item xs={12}>
-              <Button color='secondary' className='circular-btn' size='large'>
+              <Button color='secondary' className='circular-btn' size='large' fullWidth>
                 Ingresar
               </Button>
             </Grid>
