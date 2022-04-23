@@ -25,6 +25,8 @@ const columns: GridColDef[] = [
     field: 'orderdetail',
     headerName:'Detalle de la orden',
     width: 200,
+    editable: false,
+    sortable: false,
     renderCell: (params: GridValueGetterParams) => {
       return(
         <NextLink href={`/orders/${params.row.orderdetail}`} passHref>
