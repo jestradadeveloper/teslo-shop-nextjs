@@ -1,1 +1,1 @@
-export { default as product } from './Product';
+export { default as Product } from './Product';
