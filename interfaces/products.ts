@@ -9,7 +9,9 @@ export interface IProduct {
   tags: string[];
   title: string;
   type: IValidType;
-  gender: 'men'|'women'|'kid'|'unisex'
+  gender: 'men'|'women'|'kid'|'unisex';
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type IValidSize = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
