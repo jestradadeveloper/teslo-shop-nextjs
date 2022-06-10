@@ -41,6 +41,7 @@ export const ProductCard:FC<Props> = ({ product }) => {
       <Box sx={{mt:1,  display: isImageLoaded ? 'block' : 'none' }} className='fadeIn'>
         <Typography fontWeight={800}>{ product.title }</Typography>
         <Typography fontWeight={600}>{ `$${product.price}` }</Typography>
+        <Typography fontWeight={600}>Gender: { product.gender }</Typography>
       </Box>
   </Grid>
   )

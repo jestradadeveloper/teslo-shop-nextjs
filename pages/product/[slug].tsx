@@ -1,5 +1,5 @@
 import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { ShopLayout } from "../../components/layouts"
 import { ProductSlideShow, SizeSelector } from "../../components/products";
@@ -39,6 +39,10 @@ const ProductPage:NextPage<Props> = ({ product }) => {
                   <Typography variant='subtitle2'>Descripcion:</Typography>
                   <Typography variant='body2'>{product.description}</Typography>
                </Box>
+               <Box sx={{ mt:3 }}>
+                  <Typography variant='subtitle2'>Gender:</Typography>
+                  <Typography variant='body2'>{product.description}</Typography>
+               </Box>
           </Box>
 
         </Grid>
@@ -47,8 +51,38 @@ const ProductPage:NextPage<Props> = ({ product }) => {
   )
 }
 
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  const productsSlugs = await dbProducts.getAllProductsSlugs();
+  return {
+    paths: productsSlugs.map( ({slug}) => ({
+      params: { 
+        slug  
+      }
+    })),
+    fallback: 'blocking'
+  }
+}
+export const getStaticProps: GetStaticProps = async({params}) => {
+  const { slug } = params as  {slug: string};
+  const product = await dbProducts.getProductsBySlug(slug);
+  if (!product){
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {
+      product
+    },
+    revalidate: 86400,
+  }
+}
+
 //Get Server Side Props
-export const getServerSideProps: GetServerSideProps = async({params}) => {
+/* export const getServerSideProps: GetServerSideProps = async({params}) => {
   const {slug} = params as { slug: string};
   const product = await dbProducts.getProductsBySlug(slug);
 
@@ -66,6 +100,6 @@ export const getServerSideProps: GetServerSideProps = async({params}) => {
     }
   }
 
-}
+} */
 
 export default ProductPage
