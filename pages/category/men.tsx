@@ -1,10 +1,11 @@
+import type { NextPage } from 'next';
 import { Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../../components/layouts'
 import { ProductList } from '../../components/products';
 import { FullScreenLoading } from '../../components/ui';
 import { useProducts } from '../../hooks';
 
-const MenCategoryPage = () => {
+const MenPage: NextPage = () => {
   const { products, isLoading } = useProducts('/products?gender=men');
   return (
     <ShopLayout title='Category for Men' pageDescription='Products for men on TesloShop'>
@@ -22,4 +23,4 @@ const MenCategoryPage = () => {
   )
 }
 
-export default MenCategoryPage
+export default MenPage;

@@ -39,6 +39,10 @@ const ProductPage:NextPage<Props> = ({ product }) => {
                   <Typography variant='subtitle2'>Descripcion:</Typography>
                   <Typography variant='body2'>{product.description}</Typography>
                </Box>
+               <Box sx={{ mt:3 }}>
+                  <Typography variant='subtitle2'>Gender:</Typography>
+                  <Typography variant='body2'>{product.description}</Typography>
+               </Box>
           </Box>
 
         </Grid>
