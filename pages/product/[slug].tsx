@@ -31,6 +31,16 @@ const ProductPage:NextPage<Props> = ({ product }) => {
     size
    }) )
   }
+  const onUpdateQuantity = (quantity: number) => {
+    setTempCartProduct( currentProduct => ({
+     ...currentProduct,
+     quantity
+    }) )
+   }
+  const onAddProduct = () => {
+    //console.log({tempCartProduct})
+  }
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -45,9 +55,13 @@ const ProductPage:NextPage<Props> = ({ product }) => {
               {/* Cantidad */}
               <Box sx={{ my:2 }}>
                 <Typography variant='subtitle2'>Cantidad</Typography>
-                <ItemCounter/>
-                <SizeSelector  
-                  sizes={product.sizes} 
+                <ItemCounter
+                  currentValue={tempCartProduct.quantity}
+                  updatedQuantity={ onUpdateQuantity }
+                  maxValue={ product.inStock > 5 ? 5 : product.inStock }
+                />
+                <SizeSelector
+                  sizes={product.sizes}
                   selectedSize={tempCartProduct.size}
                   onSelectedSize={ (size)=> selectedSize(size) }
                 />
@@ -56,7 +70,11 @@ const ProductPage:NextPage<Props> = ({ product }) => {
                {
                 (product.inStock > 0)
                 ? (
-                  <Button color='secondary' className='circular-btn'>
+                  <Button
+                    color='secondary'
+                    className='circular-btn'
+                    onClick={ onAddProduct }
+                  >
                     {
                       tempCartProduct.size
                       ? 'Agregar al carrito'
@@ -68,8 +86,8 @@ const ProductPage:NextPage<Props> = ({ product }) => {
                   <Chip label='No hay disponibles' color='error' variant='outlined' />
                 )
                }
-               
-              
+
+
                <Box sx={{ mt:3 }}>
                   <Typography variant='subtitle2'>Descripcion:</Typography>
                   <Typography variant='body2'>{product.description}</Typography>
@@ -102,7 +120,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 //Get Server Side Props
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  
+
   const { slug = '' } = params as { slug: string };
   const product = await dbProducts.getProductsBySlug( slug );
 
