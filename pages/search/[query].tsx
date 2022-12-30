@@ -18,18 +18,18 @@ const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
    <ShopLayout title={'Buscar producto'} pageDescription={'Find best Tesla products'}>
      <Typography variant='h1' component='h1'>Buscar producto</Typography>
      {
-       foundProducts 
+       foundProducts
        ? <Typography variant='h2'  sx={{ mb: 1 }} textTransform='capitalize'> Search Term: { query }</Typography>
        : (
          <Box display='flex'>
-           <Typography variant='h2'  sx={{ mb: 1 }}>We could'nt find a product with search term</Typography>
+           <Typography variant='h2'  sx={{ mb: 1 }}>We could´nt find a product with search term</Typography>
            <Typography variant='h2'  sx={{ ml: 1 }} color='secondary'>{query}</Typography>
          </Box>
        )
 
      }
      <ProductList products={ products } />
-    
+
    </ShopLayout>
   )
 }
