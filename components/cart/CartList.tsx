@@ -14,11 +14,14 @@ interface Props{
 export const CartList:FC<Props> = ({editable = false}) => {
 
 
-  const { cart:cartProducts, updateCartQuantity  } = useContext(CartContext);
+  const { cart:cartProducts, updateCartQuantity, removeCartProduct  } = useContext(CartContext);
 
   const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
     product.quantity = newQuantityValue
     updateCartQuantity(product)
+  }
+  const removeProductInCart = (product: ICartProduct) => {
+    removeCartProduct(product)
   }
 
   return (
@@ -62,7 +65,12 @@ export const CartList:FC<Props> = ({editable = false}) => {
               <Typography variant='subtitle1'>{`$${product.price}`}</Typography>
               {
                 editable && (
-                  <IconButton color="error" aria-label="upload picture" component="span">
+                  <IconButton
+                    color="error"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={()=>{ removeProductInCart(product)} }
+                  >
                     <CloseOutlinedIcon />
                   </IconButton>
                 )
