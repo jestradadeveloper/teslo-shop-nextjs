@@ -4,10 +4,12 @@ import { AppBar, Toolbar, Link, Typography, Box, Button, IconButton, Badge, Inpu
 import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { UiContext } from '../../context/ui/UiContext';
+import { CartContext } from '../../context'
 
 export const Navbar = () => {
   const { asPath, push }= useRouter();
   const { toggleSideMenu } = useContext(UiContext);
+  const { numberOfItems } = useContext(CartContext);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const onSearchTerm = ()=> {
@@ -27,8 +29,8 @@ export const Navbar = () => {
         </NextLink>
         <Box  flex={1}/>
 
-        <Box 
-            sx={{ display: isSearchVisible ? 'none' : { xs:'none', sm:'block' }}} 
+        <Box
+            sx={{ display: isSearchVisible ? 'none' : { xs:'none', sm:'block' }}}
             className='fadeIn'
         >
           <NextLink href='/category/men' passHref>
@@ -54,7 +56,7 @@ export const Navbar = () => {
           ?(
           <Input
             className='fadeIn'
-            sx={{ display: { xs:'none', sm:'flex' }}} 
+            sx={{ display: { xs:'none', sm:'flex' }}}
             autoFocus
             value={searchTerm}
             onChange={ (e)=> setSearchTerm(e.target.value) }
@@ -72,16 +74,16 @@ export const Navbar = () => {
             } />
           )
           :
-          <IconButton  
+          <IconButton
             sx={{display: {xs: 'none', sm:'block'}}}
             onClick={ () => setIsSearchVisible(true) }
             >
             <SearchOutlined />
           </IconButton>
         }
-        
-        
-        <IconButton 
+
+
+        <IconButton
           sx={{display: {xs: 'flex', sm:'none'}}}
           onClick={ toggleSideMenu }
         >
@@ -90,7 +92,7 @@ export const Navbar = () => {
         <NextLink href='/cart' passHref>
           <Link>
             <IconButton>
-              <Badge badgeContent={2} color='secondary'>
+              <Badge badgeContent={numberOfItems > 9 ? '+9' : numberOfItems } color='secondary'>
                 <ShoppingCartOutlined/>
               </Badge>
             </IconButton>

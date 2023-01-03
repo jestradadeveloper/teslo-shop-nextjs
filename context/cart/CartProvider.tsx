@@ -4,11 +4,19 @@ import { CartContext, cartReducer } from './';
 import Cookie  from 'js-cookie';
 
 export interface CartState {
- cart: ICartProduct[]
+ cart: ICartProduct[];
+ numberOfItems: number;
+ subTotal: number;
+ tax: number;
+ total: number;
 }
 
 const CART_INITIAL_STATE: CartState = {
-  cart: []
+  cart: [],
+  numberOfItems: 0,
+  subTotal: 0,
+  tax: 0,
+  total: 0,
 }
 interface LayoutProps {
   children: React.ReactNode;
@@ -30,6 +38,21 @@ export const CartProvider = ({ children }:LayoutProps) => {
 
   useEffect(() => {
     Cookie.set('cart', JSON.stringify(state.cart), { expires: 7 })
+  }, [state.cart])
+
+  useEffect(() => {
+    const numberOfItems = state.cart.reduce((prev, current)=> current.quantity + prev, 0);
+    const subTotal = state.cart.reduce((prev, current)=> (current.price * current.quantity) + prev, 0);
+    const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0)
+    const orderSummary = {
+      numberOfItems,
+      subTotal,
+      tax: subTotal * taxRate,
+      total: subTotal * (taxRate + 1)
+    }
+
+    dispatch({ type:'[Cart] - Update order summary', payload: orderSummary});
+
   }, [state.cart])
 
 
