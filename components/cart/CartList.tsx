@@ -1,5 +1,5 @@
 import { Box, CardActionArea, CardMedia, Divider, Grid, IconButton, Link, Typography } from '@mui/material';
-import { initialData } from '../../database/products';
+
 import NextLink from 'next/link';
 import { ItemCounter } from '../ui';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
